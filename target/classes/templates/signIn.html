@@ -1,0 +1,23 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Sign in form</title>
+    <link rel="stylesheet" type="text/css" 
+          th:href="@{/style.css}"></link>
+  </head>
+  <body>
+    <div id="header" th:include="page :: header"></div>
+
+    <div id="content">
+      <h1> Please sign to use Twitter service!</h1>
+     
+     <form action="#" method="post" >
+        <label>Username</label>
+        <input type="text" name="username" ></input>
+        <label>Password</label>
+        <input type="text" name="password"></input>
+        <input type="submit" value="Submit"></input>
+     </form>
+    </div>
+</body>
+</html>

@@ -1,13 +1,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
   <head>
+  <meta charset="UTF-8"/>
+
     <title>Twitter</title>
     <link rel="stylesheet" 
           type="text/css" 
           th:href="@{/style.css}" ></link>
+          
   </head>
   <body>
-    <div id="header" th:include="page :: header"></div>
+  
+    <header id="header" th:include="page :: header"></header>
+   
   
     <div id="content">
       <div class="twittleForm">

@@ -10,5 +10,6 @@ import com.twitterlite.domain.Twittle;
 
 public interface TwittleRepository extends CrudRepository<Twittle, Long>{
     List<Twittle> findAll();
+   
     
 }
