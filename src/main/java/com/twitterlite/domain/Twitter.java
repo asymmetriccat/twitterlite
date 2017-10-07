@@ -1,13 +1,20 @@
 package com.twitterlite.domain;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
+
+
 
 @Entity
 public class Twitter {
@@ -34,7 +41,17 @@ public class Twitter {
    @NotNull
    @Size(min=5,max=16, message="{username.size")
    private String username;
+   
+   @OneToMany(mappedBy="author", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+   private List<Twittle> twittle;
 
+
+public List<Twittle> getTwittle() {
+	return twittle;
+}
+public void setTwittle(List<Twittle> twittle) {
+	this.twittle = twittle;
+}
 public Long getTwitterId() {
 	return twitterId;
 }

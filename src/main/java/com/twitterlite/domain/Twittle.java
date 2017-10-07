@@ -6,44 +6,64 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Twittle {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-    private final Long id;
-    private final String message;
-    private final Date time;
+    private  Long id;
+    private  String message;
+    private  Date time;
     private Double latitude;
     private Double longtitude;
-	public Twittle(Long id, String message, Date time, Double latitude, Double longtitude) {
-		super();
-		this.id = id;
-		this.message = message;
-		this.time = time;
-		this.latitude = latitude;
-		this.longtitude = longtitude;
-	}
+    @ManyToOne
+    @JoinColumn(name="twitterId")
+    @JsonIgnore
+    private Twitter author;
+	
 	public Long getId() {
 		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
 	}
 	public String getMessage() {
 		return message;
 	}
+	public void setMessage(String message) {
+		this.message = message;
+	}
 	public Date getTime() {
 		return time;
+	}
+	public void setTime(Date time) {
+		this.time = time;
 	}
 	public Double getLatitude() {
 		return latitude;
 	}
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
+	}
 	public Double getLongtitude() {
 		return longtitude;
 	}
-	
-	
+	public void setLongtitude(Double longtitude) {
+		this.longtitude = longtitude;
+	}
+	public Twitter getAuthor() {
+		return author;
+	}
+	public void setAuthor(Twitter author) {
+		this.author = author;
+	}
 	@Override
 	public int hashCode() {
 		// TODO Auto-generated method stub

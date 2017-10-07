@@ -8,24 +8,31 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.twitterlite.Repositories.TwitterRepository;
 import com.twitterlite.domain.Twitter;
 import com.twitterlite.service.TwitterService;
 
 @Controller
-
+@SessionAttributes("username")
 public class SignInController {
 	@Autowired
    TwitterService twitterService;
 	
+	@Autowired
+	TwitterRepository twitterRepository;
+	
 	@RequestMapping(value="/signIn", method=RequestMethod.GET)
+	
 	public String showLoginPage(Model model) {
 		return "signIn";
 	}
 	
 	@RequestMapping(value="/signIn", method=RequestMethod.POST)
 	public String signIn(@RequestParam String username, @RequestParam String password, Model model) {
-		Twitter twitter=twitterService.findByUsername(username);
+		Twitter twitter=twitterRepository.findByUsername(username);
 		if (twitter!=null){
 			
 			if(twitter.getPassword()==password) {

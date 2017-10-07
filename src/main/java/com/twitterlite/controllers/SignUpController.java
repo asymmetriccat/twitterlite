@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.twitterlite.Repositories.TwitterRepository;
 import com.twitterlite.domain.Twitter;
@@ -24,6 +25,8 @@ public class SignUpController {
 	
 	@Autowired
 	TwitterService twitterService;
+	@Autowired
+	TwitterRepository twitterRepository;
    
 	@RequestMapping(value="/register", method=RequestMethod.GET)
 	public String register(Model model) {
@@ -33,15 +36,19 @@ public class SignUpController {
 	}
 	
 	@RequestMapping(value="/register", method=RequestMethod.POST)
-	public String registerForm(@Valid Twitter twitter, Errors errors) {
+	public String registerForm(@Valid Twitter twitter, Errors errors, RedirectAttributes model) {
 		if(errors.hasErrors()) return "register";
-		twitterService.save(twitter);
-		return "redirect:/" + twitter.getUsername();
+		twitterRepository.save(twitter);
+		model.addAttribute("username", twitter.getUsername());
+		model.addFlashAttribute("twitter", twitter);
+		return "redirect:/{username}";
 	}
-	@RequestMapping(value="/profile", method=RequestMethod.GET)
+	@RequestMapping(value="/{username}", method=RequestMethod.GET)
 	public String twitterProfile(@PathVariable String username, Model model) {
-		Twitter twitter=twitterService.findByUsername(username);
-		model.addAttribute(twitter);
+		if(!model.containsAttribute("twitter")) {
+		
+		model.addAttribute(twitterRepository.findByUsername(username));
+		}
 		return "profile";
 	}
 }
