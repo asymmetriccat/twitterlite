@@ -38,7 +38,7 @@ public class SignInController {
 			if(twitter.getPassword()==password) {
 				model.addAttribute("username", username);
 				model.addAttribute("password", password);
-			return "redirect:/home";
+			return "redirect:/welcomepage";
 			}
 		}
 		return "redirect:/register";

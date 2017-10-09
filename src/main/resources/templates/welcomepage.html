@@ -1,0 +1,18 @@
+<html xmlns="http://www.thymeleaf.org" xmlns:th="http://www.w3.org/1999/xhtml">
+  <head>
+      <title>Twitterlite</title>
+      <link rel="stylesheet" type="text/css" th:href="@{/style.css}"></link>
+  </head>
+  <body>
+  <div id="header" th:include="page :: header"></div>
+
+  <div id="content">
+      <h1>Welcome to TwitterLite, <span th:value="${twitter.username}"> user</span></h1>
+
+      
+
+  </div>
+  <div id="footer" th:include="page :: copy"></div>
+  </body>
+
+</html>

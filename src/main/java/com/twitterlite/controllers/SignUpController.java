@@ -38,10 +38,13 @@ public class SignUpController {
 	@RequestMapping(value="/register", method=RequestMethod.POST)
 	public String registerForm(@Valid Twitter twitter, Errors errors, RedirectAttributes model) {
 		if(errors.hasErrors()) return "register";
+		if(null==twitterRepository.findByUsername(twitter.getUsername())) {
 		twitterRepository.save(twitter);
 		model.addAttribute("username", twitter.getUsername());
 		model.addFlashAttribute("twitter", twitter);
 		return "redirect:/{username}";
+		}
+		return "register";
 	}
 	@RequestMapping(value="/{username}", method=RequestMethod.GET)
 	public String twitterProfile(@PathVariable String username, Model model) {
